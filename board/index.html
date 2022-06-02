@@ -13,9 +13,10 @@
         <div class="write-popup">
             <div class="editor">
                 <div class="input-box">
-                    <label for="studentsName">작성자 : </label>
-                    <input id="studentsName" type="text" value="현상원" readonly>
+                    <label for="studentsName">작성자 :  </label>
+                    <input id="studentsName" type="text" value="daxnee" readonly>
                 </div>
+
                 <div class="input-box">
                     <label for="title">제목 : </label>
                     <input id="title" type="text" placeholder="제목을 입력하세요...">
@@ -29,6 +30,7 @@
                 </div>
             </div>
         </div>
+        
         <!-- 글 작성 수정 -->
         <div class="update-popup">
             <div class="editor">
@@ -43,12 +45,15 @@
                     <textarea id="upt-content" rows="10" cols="65" placeholder="내용을 간단히 적어주세요..."></textarea>
                 </div>
                 <div class="btn-area">
-                    <input id="boardIdHidden" type="hidden">
+                     <input id="boardIdHidden" type="hidden">
                     <a id="contentUpdate" href="#" class="btn-update">수정</a>
                     <a id="contentDelete" href="#" class="btn-delete">삭제</a>
                 </div>
             </div>
         </div>
+
+
+
         <div class="navigation">
             <ul>
                 <li>
@@ -72,7 +77,7 @@
                 <li>
                     <a href="#">
                         <span class="icon"><ion-icon name="lock-closed-outline"></ion-icon></span>
-                        <span class="title">logs</span>                
+                        <span class="title">Password</span>                
                     </a>
                 </li>
                 <li>
@@ -94,7 +99,7 @@
             <!-- search -->
             <div class="search">
                 <label>
-                    <input id="searchBar" type="text" placeholder="작성자를 검색하세요..." >
+                    <input id="searchBar" type="text" placeholder="작성자를 검색하세요...">
                 </label>
             </div>
             <div>
@@ -103,43 +108,43 @@
         </div>
          <!-- cards -->
          <div class="cardBox">
-             <div class="card">
-                 <div>
-                    <div id="studentsCnt" class="numbers">1,400</div>
-                    <div class="cardName">학생 수</div>
-                 </div>
-                 <div class="iconBx">
-                    <ion-icon name="school-outline"></ion-icon>
-                 </div>
-             </div>
-             <div class="card">
+            <div class="card">
                 <div>
-                   <div id="boardCnt" class="numbers">500</div>
-                   <div class="cardName">게시글 수</div>
+                   <div id="studentsCnt" class="numbers">1,400</div>
+                   <div class="cardName">학생 수</div>
                 </div>
                 <div class="iconBx">
-                    <ion-icon name="book-outline"></ion-icon>
+                   <ion-icon name="school-outline"></ion-icon>
                 </div>
             </div>
             <div class="card">
-                <div>
-                   <div id="writerCnt" class="numbers">300</div>
-                   <div class="cardName">작성자 수</div>
-                </div>
-                <div class="iconBx">
-                    <ion-icon name="code-slash-outline"></ion-icon>
-                </div>
-            </div>
-            <div class="card">
-                <div>
-                   <div id="viewsCnt" class="numbers">2,800</div>
-                   <div class="cardName">총 조회 수</div>
-                </div>
-                <div class="iconBx">
-                    <ion-icon name="eye-outline"></ion-icon>
-                </div>
-            </div>
-         </div>
+               <div>
+                  <div id="boardCnt" class="numbers">500</div>
+                  <div class="cardName">게시글 수</div>
+               </div>
+               <div class="iconBx">
+                   <ion-icon name="book-outline"></ion-icon>
+               </div>
+           </div>
+           <div class="card">
+               <div>
+                  <div id="writerCnt" class="numbers">300</div>
+                  <div class="cardName">작성자 수</div>
+               </div>
+               <div class="iconBx">
+                   <ion-icon name="code-slash-outline"></ion-icon>
+               </div>
+           </div>
+           <div class="card">
+               <div>
+                  <div id="viewsCnt" class="numbers">2,800</div>
+                  <div class="cardName">총 조회 수</div>
+               </div>
+               <div class="iconBx">
+                   <ion-icon name="eye-outline"></ion-icon>
+               </div>
+           </div>
+        </div>
          <!-- table -->
          <div class="details">
              <div class="recentOrders">
@@ -159,8 +164,8 @@
                          </tr>
                      </thead>
                      <tbody id="boardData">
-                         <!-- <tr>
-                             <td>1</td>
+                         <tr>
+                             <!-- <td>1</td>
                              <td>현상원</td>
                              <td>점심시간이 너무 짧아요!</td>
                              <td>2022-05-19</td>
@@ -179,18 +184,18 @@
                             <td>3</td>
                             <td>현상원</td>
                             <td>너무 졸려요...</td>
-                            <td>-</td>
+                            <td>2022-05-19</td>
                             <td>2022-05-18</td>
                             <td><span class="row">5</span></td>
                         </tr>
                         <tr>
                             <td>4</td>
                             <td>현상원</td>
-                            <td>안녕하세요!</td>
+                            <td>안녕하세요!</td> 
                             <td>2022-05-19</td>
                             <td>2022-05-18</td>
-                            <td><span class="row">22</span></td>
-                        </tr> -->
+                            <td><span class="row">22</span></td> -->
+                        </tr>
                      </tbody>
                  </table>
                  <div class="pagination">
@@ -223,6 +228,12 @@
     $('.btn-close').click(function(){
         $('.update-popup').css('display', 'none');
     });
+
+    // $('#contentSubmit').click(function(){
+    //     if(confirm('게시글을 작성하시겠습니까?')){
+    //         $('.write-popup').css('display', 'none');
+    //     }
+    // });
     let list = document.querySelectorAll('.navigation li');
     function activeLink(){
         list.forEach((item) => {item.classList.remove('hovered')});
@@ -231,185 +242,259 @@
     list.forEach((item) => {item.addEventListener('mouseover',activeLink)});
 </script>
 <script>
-    //게시판 리스트 호출
-    getBoardList(1, 10);
-    //게시판 통계 함수 호출
+   
+    
+    // 게시판 리스트 호출 
     getBoardStatistics();
 
-    function getBoardList(pageNum, pageSize){
-        $.ajax({
-            url: 'http://localhost:8080/api/v1/board?pageNum='+pageNum+'&pageSize='+pageSize,
-            type : 'GET',
-            dataType: 'json',
-            success: function (response) {
-                console.log(response);
-                //html append 작성
-                var html = '';
-                var len = response.list.length;
-                if(len > 0){
-                    for(var i=0; i<len; i++){          
-                        var views = response.list[i].cnt;
-                        if(views < 10){
-                            //crtl + shift + H => 전체 replace
-                            html += '<tr onclick=getBoard('+response.list[i].boardId+') ><td>'+response.list[i].boardId+'</td><td>'+response.list[i].studentsName+'</td><td>'+response.list[i].title+'</td><td>'+response.list[i].updateAt+'</td><td>'+response.list[i].createAt+'</td><td><span class="row">'+response.list[i].cnt+'</span></td></tr>';  
-                        }
-                        if(views >= 10 && views < 20){
-                            html += '<tr onclick=getBoard('+response.list[i].boardId+') ><td>'+response.list[i].boardId+'</td><td>'+response.list[i].studentsName+'</td><td>'+response.list[i].title+'</td><td>'+response.list[i].updateAt+'</td><td>'+response.list[i].createAt+'</td><td><span class="middle">'+response.list[i].cnt+'</span></td></tr>';  
-                        }
-                        if(views >= 20){
-                            html += '<tr onclick=getBoard('+response.list[i].boardId+') ><td>'+response.list[i].boardId+'</td><td>'+response.list[i].studentsName+'</td><td>'+response.list[i].title+'</td><td>'+response.list[i].updateAt+'</td><td>'+response.list[i].createAt+'</td><td><span class="high">'+response.list[i].cnt+'</span></td></tr>';  
-                        }
-                    }//end for
-                    //페이징 화면 구현
-                    var paginationHtml = '';
-                    if(response.hasPreviousPage){ //이전 페이지가 true 라면
-                        paginationHtml += '<a onclick="getBoardList('+(response.pageNum-1)+','+pageSize+')" href="#">Previous</a>';
-                    }
-                    for(var i=0; i<response.navigatepageNums.length; i++){ //페이지 번호 길이 만큼 for문 실행
-                        paginationHtml += '<a id="pageNum'+response.navigatepageNums[i]+'" onclick="getBoardList('+response.navigatepageNums[i]+','+pageSize+')">'+response.navigatepageNums[i]+'</a>';
-                    }
-                    if(response.hasNextPage){ //다음 페이지가 true 라면
-                        paginationHtml += '<a onclick="getBoardList('+(response.pageNum+1)+','+pageSize+')" href="#">Next</a>';
-                    }
-                    $('.pagination').children().remove();
-                    $('.pagination').append(paginationHtml);
-
-                    //페이지 번호에 맞게 css 수정
-                    $('#pageNum'+pageNum).css('backgroundColor','#287bff');
-                    $('#pageNum'+pageNum).css('color','#fff');
-
-                }else{
-                    //게시글 없음 로직 구현
-                    html += '<tr><td colspan=6 style="text-align: center;">게시글이 없습니다.</td></tr>';
-                }
-                $('#boardData').children().remove();
-                $('#boardData').append(html);//tbody에 json데이터 렌더링
-            }
-        });
-    }//end function
-
-    function getBoardStatistics(){
+     function getBoardStatistics(){
         $.ajax({
             url: 'http://localhost:8080/api/v1/board/statistics',
             type : 'GET',
             dataType: 'json',
             success: function (response) {
+                console.log(response)
                 //text() or html() input을 제외한 태그를 컨트롤할 때 사용.
                 //val()은 input 컨트롤할 때 사용.
                 $('#boardCnt').text(response.boardCnt);
                 $('#studentsCnt').text(response.studentsCnt);
                 $('#writerCnt').text(response.writerCnt);
                 $('#viewsCnt').text(response.viewsCnt);
+            },
+            error : function(request , status, error){
+                console.log(error)
             }
         });
-    };//end   
+    };//end
 
-    /* 게시판 작성 함수 */
-    $('#contentSubmit').click(function(){
-        if(confirm('게시글을 작성하시겠습니까?')){
-            var title = $('#title').val();
-            var content = $('#content').val();
-            var studentsId = 13;
-            if(title == ''){
-                alert('제목을 입력 해주세요');
-                $('#title').focus();
-                return false;
-            }
-            if(content == ''){
-                alert('내용을 작성 해주세요');
-                $('#content').focus();
-                return false;
-            }
-            var jsonData = {
-            studentsId : studentsId,
-            title : title,
-            content : content
-            };
-            $.ajax({
-                url : 'http://localhost:8080/api/v1/board',
-                type : 'POST',
-                contentType: 'application/json', //서버에 json 타입으로 보낼 예정(요청)
-                dataType: 'json', //서버 결과를 json으로 응답받겠다.
-                data: JSON.stringify(jsonData),
-                success : function(response){
-                    if(response > 0){
-                        //작성 화면 감추기
-                        $('.write-popup').css('display', 'none');
-                        //내가 작성한 글 지우기
-                        $('#title').val('');
-                        $('#content').val('');                      
-                        $('#boardData').children().remove();//tbody id
-                        getBoardList(1,10);
-                    }
+
+
+    getBoardList(1, 10); // 함수 호출 (없으면 결과 안 뜸)
+
+    function getBoardList(pageNum, pageSize){
+    $.ajax({
+        url : 'http://localhost:8080/api/v1/board?pageNum='+pageNum+'&pageSize='+pageSize,
+        type : 'GET',
+        dataType : 'json',
+        success : function(response){ //(파라미터 변수 이름이라 임의로 지정가능)
+            // 게시판 조회하는 controller의 리턴타입이 변수 response에 담김
+            console.log(response);
+        var html = "";
+        if(response.list.length>0){  
+        for(var i=0; i<response.list.length; i++){ // 
+                // 조회수 count 로직 여기서 구현하기 why? for문이 돌아야 count가 가능하니까
+                // var 조회수 =  response[i].조회수;
+            var views = response.list[i].cnt;  
+            if(views < 10){         
+                html += 
+            '<tr onclick=getBoard('+response.list[i].boardId+')><td>'  
+                +response.list[i].boardId+
+                '</td><td>'
+                +response.list[i].studentsName+
+                '</td><td>'
+                +response.list[i].title+
+                '</td><td>'
+                +response.list[i].updateAt+
+                '</td><td>'
+                +response.list[i].createAt+
+                '</td><td><span class = "row">'
+                +response.list[i].cnt+
+                 '</span></td></tr>'
                 }
-            });//ajax end
-        }//if end 
-    });//contentSubmit click end
+    
+               
+                if(views >= 10 && views <= 20){
+                html += 
+                '<tr onclick=getBoard('+response.list[i].boardId+')><td>'  
+                +response.list[i].boardId+
+                '</td><td>'
+                +response.list[i].studentsName+
+                '</td><td>'
+                +response.list[i].title+
+                '</td><td>'
+                +response.list[i].updateAt+
+                '</td><td>'
+                +response.list[i].createAt+
+                '</td><td><span class = "row">'
+                +response.list[i].cnt+
+                 '</span></td></tr>'
+                }
+              
+                if(views >= 20){
+                    html += 
+                '<tr onclick=getBoard('+response.list[i].boardId+')><td>'  
+                +response.list[i].boardId+
+                '</td><td>'
+                +response.list[i].studentsName+
+                '</td><td>'
+                +response.list[i].title+
+                '</td><td>'
+                +response.list[i].updateAt+
+                '</td><td>'
+                +response.list[i].createAt+
+                '</td><td><span class = "row">'
+                +response.list[i].cnt+
+                 '</span></td></tr>'
+                }
+            }// end for
+            // 페이징 화면 구현
+            var paginationHtml = '';
+            if(response.hasPreviousPage){ // 이전 페이지가 있다면(true)
+                paginationHtml  += '<a <a onclick="getBoardList('+(response.pageNum-1)+', '+pageSize+')" href="#">Previous</a>';
+            }
+            for(var i=0; i<response.navigatepageNums.length; i++){ // 페이지 번호 길이 만큼 for문 실행 / navigatepageNums : array
+                paginationHtml += '<a id="pageNum'+response.navigatepageNums[i]+'" onclick="getBoardList('+response.navigatepageNums[i]+', '+pageSize+')" href="#">'+response.navigatepageNums[i]+'</a>';
+                // id = pageNum1
+            }
+            if(response.hasNextPage){ // 다음 페이지가 있다면(true)
+                paginationHtml  += '<a onclick="getBoardList('+(response.pageNum+1)+', '+pageSize+')" href="#">Next</a>';
+            }
+            $('.pagination').children().remove(); // 성형작업1
+            $('.pagination').append(paginationHtml);
 
-    function getBoard(boardId){//클릭한 게시물 확인하는 함수 
+            // 페이지 번호에 맞게 css 수정 
+            // 성형작업 2-1
+            $('#pageNum'+pageNum).css('backgroundColor','#287bff'); // 파라미터로 클릭한 페이지 번호를 받아오기 때문에 색상이 변경될 수 있음
+            $('#pageNum'+pageNum).css('color','#fff')
+
+
+        }else{
+            html += '<tr><td colspan=6 style= "text-align: center;"> 게시글이 없습니다.</tr></td>'
+        } // colspan = 6  : 목록이 6개
+        
+        $('#boardData').children().remove();  // 성형작업1
+        $('#boardData').append(html); // tbody에 json데이터 렌더링
+            },
+        });
+    }   // end function
+
+
+     /* 게시판 작성 함수 */
+    $('#contentSubmit').click(function(){
+
+        if(confirm('게시글을 작성하시겠습니까?')){
+        var title = $('#title').val();
+        var content = $('#content').val();
+        var studentsId = 9; // DB에 있는 studentsId로 임시 설정
+
+        //빈칸 확인
+        if(title == ''){
+            alert('제목을 입력해주세요!');
+            return false;
+        }
+
+        if(content == ''){
+            alert('내용을 입력해주세요!');
+            return false;
+        }
+
+        var jsonData = {
+            studentsId : studentsId,
+            content : content,
+            title : title
+      };
+        
+      
+    $.ajax({ // 게시판 글 작성 데이터가 디비버에 insert
+        url : 'http://localhost:8080/api/v1/board',
+        type : 'POST',
+        contentType : 'application/json', 
+        dataType : 'json', 
+        data : JSON.stringify(jsonData),
+        success : function(response){
+          console.log(response);
+          if(response > 0){
+              $('.write-popup').css('display', 'none');  //글 작성이 완료되면 css = none (팝업창 사라짐)
+              //내가 전에 작성한 글 지우고 빈 input 박스(제목, 타이틀) 보여주기. 지우지 않으면 전에 작성한 글이 그대로 남는다.
+              $('#title').val('');  
+              $('#content').val('');
+              $('#boardData').children().remove(); 
+              // tbody에 있는 기존 append를 지우고 새로운 함수를 호출해야 한다 remove 하지 않으면 게시글 목록이 추가로 또 생긴다. 
+              getBoardList(1,10); //아래 함수 호출
+          }
+        }
+
+    }); // ajax end  =>  웹에선 안 보이고 디비버에선 보임
+    }    // if end
+ });// ontentSubmit click end
+
+
+    
+    function getBoard(boardId){ // 클릭한 게시물 상세내용 확인하는 함수 
         //boardId html에 hidden 하기
         //1. 화면 none -> block
-        $('.update-popup').css('display', 'block');
-        //AJAX 작성
-        //2. AJAX를 이용해서 서버와 연결
-        $.ajax({
-            url: 'http://localhost:8080/api/v1/board/boardId/'+boardId,
-            type : 'GET',
-            dataType: 'json',
-            success: function (response) {
-                //3. input에 데이터 set 해주기!  
-                $('#upt-title').val(response.title);
-                $('#upt-content').val(response.content);
-                $('#boardIdHidden').val(boardId);
-                setBoardViews(boardId); //조회 수 함수
-            }
-        });
-    }//end
+        $('.update-popup').css('display', 'block'); // 클릭했을때 block(창 뜨기)
 
-    //게시물 수정 하는 함수
+        //AJAX 작성
+        $.ajax({ // 게시판 글 작성 데이터가 디비버에 insert
+        url : 'http://localhost:8080/api/v1/board/boardId/'+boardId,
+        type : 'GET',
+        dataType : 'json', 
+        success : function(response){
+            //3. input에 데이터 set 해주기
+            $('#upt-title').val(response.title);
+            $('#upt-content').val(response.content);
+            $('#boardIdHidden').val(boardId); 
+
+            setBoardViews(boardId); // 조회수 함수
+            }
+
+        });
+    } // end getBoard()
+
+    // 게시물 수정 하는 함수
     $('#contentUpdate').click(function(){
-        //1. 게시판 번호 확인
-        var boardId =  $('#boardIdHidden').val(); //hidden에 숨겨둔 boardId 가져오기.
+        // 1.게시판 번호 확인
+        var boardId = $('#boardIdHidden').val(); // hidden에 숨겨둔 boardId 가져오기
         //2. JSON 생성
-        var title = $('#upt-title').val();
+        var title =  $('#upt-title').val();
         var content = $('#upt-content').val();
         var jsonData = {
             title : title,
             content : content
         };
-        //3. AJAX를 이용해서 업데이트!
-        $.ajax({
-                url : 'http://localhost:8080/api/v1/board/boardId/'+boardId,
-                type : 'PATCH', //HTTP 메소드는 PATCH
-                contentType: 'application/json', //서버에 json 타입으로 보낼 예정(요청)
-                dataType: 'json', //서버 결과를 json으로 응답받겠다.
-                data: JSON.stringify(jsonData),
-                success : function(response){
-                    if(response > 0){
-                        alert('수정 완료');
-                        $('.update-popup').css('display', 'none'); //게시물 상세 화면 감추기
-                    }
-                }
-            });//ajax end
-    });//end
 
-    //게시물 삭제 하는 함수
-    $('#contentDelete').click(function(){
-        var boardId =  $('#boardIdHidden').val(); //hidden에 숨겨둔 boardId 가져오기.
-        $.ajax({
-            url: 'http://localhost:8080/api/v1/board/boardId/'+boardId,
-            type : 'DELETE',
-            dataType: 'json',
-            success: function (response) {
+      $.ajax({ 
+            url : 'http://localhost:8080/api/v1/board/boardId/'+boardId,
+            type : 'PATCH', // HTTP update 메소드 
+            contentType : 'application/json', // 서버에 json타입으로 보낼 예정(요청)
+            dataType : 'json', // 서버 결과를 json으로 응답받겠다
+            data : JSON.stringify(jsonData),
+            success : function(response){
                 if(response > 0){
-                    alert('삭제 완료');
+                    if(!confirm('수정 하시겠습니까?')){
+                        return false; 
+                    }
+                    alert('수정 완료');
                     $('#boardData').children().remove();
+                    $('.update-popup').css('display', 'none'); // 게시물 상세 화면 감추기
                     getBoardList(1,10);
-                    $('.update-popup').css('display', 'none'); //게시물 상세 화면 감추기
                 }
             }
-        });
+        }); //ajax end 
     });
+
+
+
+        //게시물 삭제 하는 함수
+    $('#contentDelete').click(function(){
+        var boardId = $('#boardIdHidden').val(); //hidden에 숨겨둔 boardId 가져오기.
+        if(confirm('게시물을 삭제하시겠습니까?')){
+            $.ajax({ 
+                url : 'http://localhost:8080/api/v1/board/boardId/'+boardId,
+                type : 'DELETE',
+                dataType : 'json', // 서버 결과를 json으로 응답받겠다
+                success : function(response){
+                if(response > 0){
+                    alert('삭제 완료!')
+                    $('#boardData').children().remove();
+                    getBoardList(1,10);// delete or insert 할때 데이터가 변경됐으니 리스트를 새로 불러와야 한다.
+                    $('.update-popup').css('display', 'none'); // 게시물 상세 화면 감추기
+                    }
+                }
+            }); //end ajax
+        }
+    }); // end
 
     function setBoardViews(boardId){ //게시판 조회수 증가 함수
         $.ajax({
@@ -440,17 +525,53 @@
                 dataType: 'json',
                 success: function (response) {
                     var html = '';
-                    if(response.length > 0){
-                        for(var i=0; i<response.length; i++){          
+                    if(response.list.length > 0){
+                        for(var i=0; i<response.list[i].length; i++){          
                             var views = response.list[i].cnt;
-                            if(views < 10){
-                                html += '<tr onclick=getBoard('+response.list[i].boardId+') ><td>'+response.list[i].boardId+'</td><td>'+response.list[i].studentsName+'</td><td>'+response.list[i].title+'</td><td>'+response.list[i].updateAt+'</td><td>'+response.list[i].createAt+'</td><td><span class="row">'+response.list[i].cnt+'</span></td></tr>';  
+                            if(views < 10){         
+                            html += '<tr onclick=getBoard('+response.list[i].boardId+')><td>'  
+                            +response.list[i].boardId+
+                            '</td><td>'
+                            +response.list[i].studentsName+
+                            '</td><td>'
+                            +response.list[i].title+
+                            '</td><td>'
+                            +response.list[i].updateAt+
+                            '</td><td>'
+                            +response.list[i].createAt+
+                            '</td><td><span class = "row">'
+                            +response.list[i].cnt+
+                            '</span></td></tr>'
                             }
                             if(views >= 10 && views < 20){
-                                html += '<tr onclick=getBoard('+response.list[i].boardId+') ><td>'+response.list[i].boardId+'</td><td>'+response.list[i].studentsName+'</td><td>'+response.list[i].title+'</td><td>'+response.list[i].updateAt+'</td><td>'+response.list[i].createAt+'</td><td><span class="middle">'+response.list[i].cnt+'</span></td></tr>';  
+                            html += '<tr onclick=getBoard('+response.list[i].boardId+')><td>'  
+                            +response.list[i].boardId+
+                            '</td><td>'
+                            +response.list[i].studentsName+
+                            '</td><td>'
+                            +response.list[i].title+
+                            '</td><td>'
+                            +response.list[i].updateAt+
+                            '</td><td>'
+                            +response.list[i].createAt+
+                            '</td><td><span class = "row">'
+                            +response.list[i].cnt+
+                            '</span></td></tr>'  
                             }
                             if(views >= 20){
-                                html += '<tr onclick=getBoard('+response.list[i].boardId+') ><td>'+response.list[i].boardId+'</td><td>'+response.list[i].studentsName+'</td><td>'+response.list[i].title+'</td><td>'+response.list[i].updateAt+'</td><td>'+response.list[i].createAt+'</td><td><span class="high">'+response.list[i].cnt+'</span></td></tr>';  
+                                '<tr onclick=getBoard('+response.list[i].boardId+')><td>'  
+                            +response.list[i].boardId+
+                            '</td><td>'
+                            +response.list[i].studentsName+
+                            '</td><td>'
+                            +response.list[i].title+
+                            '</td><td>'
+                            +response.list[i].updateAt+
+                            '</td><td>'
+                            +response.list[i].createAt+
+                            '</td><td><span class = "row">'
+                            +response.list[i].cnt+
+                            '</span></td></tr>'
                             }
                         }
                     }else{
@@ -463,5 +584,15 @@
             });
         }
     });
+
+
+
+
+
+
+
+
+
+
 </script>
 </html>
