@@ -153,22 +153,23 @@
 <script>
     $('.logs-popup').css('display', 'none');
 
+    // onclick 팝업창 띄우기(지도)
     function getPopup(logId){
         $('.logs-popup').css('display', 'block');
         
-        $.ajax({ // 게시판 글 작성 데이터가 디비버에 insert
+        $.ajax({
         url : 'http://localhost:8080/api/v1/logs/logId/'+logId,
         type : 'GET',
         dataType : 'json', 
         success : function(response){
             var latitude = response.latitude; //위도
             var longitude = response.longitude; //경도
-            $('#ip').val(response.ip);
+            $('#ip').val(response.ip); 
             $('#createAt').val(response.create_at);
             //카카오맵 
             var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
                mapOption = { 
-                   center: new kakao.maps.LatLng(latitude, longitude), // 지도의 중심좌표
+                   center: new kakao.maps.LatLng(latitude, longitude), // 지도의 중심좌표 (마크 찍기)
                    level: 3 // 지도의 확대 레벨
                };
     
@@ -205,14 +206,14 @@ getBoardList(1, 10); // 함수 호출 (없으면 결과 안 뜸)
         type : 'GET',
         dataType : 'json',
         success : function(response){ 
-            console.log(response);
+            //console.log(response);
         var html = "";
         var len = response.list.length;
         if(response.list.length>0){  
         for(var i=0; i<len; i++){ // 
-            if(len > 0){         
+            if(len > 0){
                 html += 
-            '<tr onclick=getPopup('+response.list[i].log_id+')><td>'  // 클릭할때 map popup 뜨게
+            '<tr onclick=getPopup('+response.list[i].log_id+')><td>'  // 행 한줄 전체를 클릭할때 map popup 뜨게
                 +response.list[i].log_id+
                 '</td><td>'
                 +response.list[i].ip+
@@ -222,8 +223,8 @@ getBoardList(1, 10); // 함수 호출 (없으면 결과 안 뜸)
                 +response.list[i].http_method+
                 '</td><td>'
                 +response.list[i].create_at+
-                '</td><td>'
-                // '</td></tr>'
+                '</td></tr>'
+                // '</tr></tr>'
                 }
     
               
@@ -240,7 +241,7 @@ getBoardList(1, 10); // 함수 호출 (없으면 결과 안 뜸)
             if(response.hasNextPage){ // 다음 페이지가 있다면(true)
                 paginationHtml  += '<a onclick="getBoardList('+(response.pageNum+1)+', '+pageSize+')" href="#">Next</a>';
             }
-            $('.pagination').children().remove(); // 성형작업1
+            $('.pagination').children().remove(); 
             $('.pagination').append(paginationHtml);
 
             // 페이지 번호에 맞게 css 수정 
@@ -248,12 +249,11 @@ getBoardList(1, 10); // 함수 호출 (없으면 결과 안 뜸)
             $('#pageNum'+pageNum).css('backgroundColor','#287bff'); // 파라미터로 클릭한 페이지 번호를 받아오기 때문에 색상이 변경될 수 있음
             $('#pageNum'+pageNum).css('color','#fff')
 
-
         }else{
             html += '<tr><td colspan=6 style= "text-align: center;"> 게시글이 없습니다.</tr></td>'
         } // colspan = 6  : 목록이 6개
         
-        $('#boardData').children().remove();  // 성형작업1
+        $('#boardData').children().remove();  
         $('#boardData').append(html); // tbody에 json데이터 렌더링
             },
         });
