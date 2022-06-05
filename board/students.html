@@ -102,7 +102,7 @@
                      </thead>
                      <tbody id="boardData">
                          <tr>
-                             <td>hyunsangwon</td>
+                             <!-- <td>hyunsangwon</td>
                              <td>현상원</td>
                              <td>2022-05-19</td>
                          </tr>
@@ -114,18 +114,18 @@
                         <tr>
                             <td>hyunsangwon</td>
                             <td>현상원</td>
-                            <td>2022-05-19</td>
+                            <td>2022-05-19</td> -->
                         </tr>
                      </tbody>
                  </table>
                  <div class="pagination">
-                    <a href="#">Previous</a>
+                    <!-- <a href="#">Previous</a>
                     <a href="#">1</a>
                     <a href="#">2</a>
                     <a href="#">3</a>
                     <a href="#">4</a>
                     <a href="#">5</a>
-                    <a href="#">Next</a>
+                    <a href="#">Next</a> -->
                  </div>
              </div>
          </div>
@@ -147,6 +147,21 @@
     list.forEach((item) => {item.addEventListener('mouseover',activeLink)});
 </script>
 <script>
+
+    //학생 리스트 호출
+    getStudentsList();
+    function getStudentsList(){
+        $.ajax({
+        url : 'http://localhost:8080/api/v1/students/map',
+        type : 'GET',
+        dataType : 'json',
+        success : function(response){ //(파라미터 변수 이름이라 임의로 지정가능)
+            // 게시판 조회하는 controller의 리턴타입이 변수 response에 담김
+            console.log(response);
+       
+            }
+        })
+    }
 
 </script>
 </html>
