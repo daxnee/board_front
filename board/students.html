@@ -26,7 +26,7 @@
                 <div class="input-box">
                     <label for="studentsPassword">학생 비밀번호 : </label>
                     <input id="studentsPassword" type="text" placeholder="이름을 입력하세요...">
-                </div>
+                </div>  
                 <div class="btn-area">
                     <input id="boardIdHidden" type="hidden">
                     <a id="contentUpdate" href="#" class="btn-update">수정</a>
@@ -149,19 +149,82 @@
 <script>
 
     //학생 리스트 호출
-    getStudentsList();
-    function getStudentsList(){
-        $.ajax({
-        url : 'http://localhost:8080/api/v1/students/map',
-        type : 'GET',
-        dataType : 'json',
-        success : function(response){ //(파라미터 변수 이름이라 임의로 지정가능)
-            // 게시판 조회하는 controller의 리턴타입이 변수 response에 담김
-            console.log(response);
-       
+    // getStudentsList();
+    getStudentsList(1, 10); // 함수 호출 (없으면 결과 안 뜸)
+
+function getStudentsList(pageNum, pageSize){
+$.ajax({
+    url : 'http://localhost:8080/api/v1/students/map?pageNum='+pageNum+'&pageSize='+pageSize,
+    type : 'GET',
+    dataType : 'json',
+    success : function(response){ 
+        console.log(response.list);
+    var html = "";
+    var len = response.list.length;
+    if(response.len>0){  
+    for(var i=0; i<response.len; i++){ // 
+        if(response > 0){         
+            html += 
+        '<tr onclick=getStudents('+response.list[i].studentsId+')><td>'  
+            +response.list[i].studentsId+
+            '</td><td>'
+            +response.list[i].studentsName+
+            '</td><td>'
+            +response.list[i].createAt+
+             '</td></tr>'
             }
-        })
-    }
+        }// end for
+        // 페이징 화면 구현
+        var paginationHtml = '';
+        if(response.hasPreviousPage){ // 이전 페이지가 있다면(true)
+            paginationHtml  += '<a <a onclick="getStudentsList('+(response.pageNum-1)+', '+pageSize+')" href="#">Previous</a>';
+        }
+        for(var i=0; i<response.navigatepageNums.length; i++){ // 페이지 번호 길이 만큼 for문 실행 / navigatepageNums : array
+            paginationHtml += '<a id="pageNum'+response.navigatepageNums[i]+'" onclick="getStudentsList('+response.navigatepageNums[i]+', '+pageSize+')" href="#">'+response.navigatepageNums[i]+'</a>';
+            // id = pageNum1
+        }
+        if(response.hasNextPage){ // 다음 페이지가 있다면(true)
+            paginationHtml  += '<a onclick="getStudentsList('+(response.pageNum+1)+', '+pageSize+')" href="#">Next</a>';
+        }
+        $('.pagination').children().remove(); // 성형작업1
+        $('.pagination').append(paginationHtml);
+
+        // 페이지 번호에 맞게 css 수정 
+        // 성형작업 2-1
+        $('#pageNum'+pageNum).css('backgroundColor','#287bff'); // 파라미터로 클릭한 페이지 번호를 받아오기 때문에 색상이 변경될 수 있음
+        $('#pageNum'+pageNum).css('color','#fff')
+
+
+    }else{
+        html += '<tr><td colspan=3 style= "text-align: center;"> 게시글이 없습니다.</tr></td>'
+    } // colspan = 6  : 목록이 6개
+    
+    $('#boardData').children().remove();  // 성형작업1
+    $('#boardData').append(html); // tbody에 json데이터 렌더링
+        },
+    });
+}   // end function
+
+
+
+    //상세내용 확인 함수
+    function getStudents(studentsId){
+        $('.update-popup').css('display', 'block');
+
+        $.ajax({
+            url : 'http://localhost:8080/api/v1/students/id/'+studentsId,
+            type : 'GET',
+        dataType : 'json', 
+        success : function(response){
+            //3. input에 데이터 set 해주기
+            $('#studentsId').val(response.studentsId);
+            $('#studentsName').val(response.content);
+            $('#studentsPassword').val(response.studentsPassword);
+            $('#boardIdHidden').val(boardId); 
+         
+            }
+        });
+    }; //end getStudents()
 
 </script>
 </html>
