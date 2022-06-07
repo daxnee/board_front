@@ -152,6 +152,15 @@ body{
     box-shadow: 0 7px 25px rgba(0,0,0,0.2);
     border-radius: 20px;
 }
+
+#students-btn{
+    text-decoration: none;
+    font-size: 15px;
+    background-color: var(--blue);
+    color: var(--white);
+    padding: 0.5rem 0.75rem;
+    border-radius: 5px;
+}
 .cardHeader{
     display: flex;
     justify-content: space-between;
