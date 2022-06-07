@@ -161,9 +161,9 @@ $.ajax({
         console.log(response.list);
     var html = "";
     var len = response.list.length;
-    if(response.len>0){  
-    for(var i=0; i<response.len; i++){ // 
-        if(response > 0){         
+    if(len > 0){  
+    for(var i=0; i<len; i++){ // 
+        if(len > 0){         
             html += 
         '<tr onclick=getStudents('+response.list[i].studentsId+')><td>'  
             +response.list[i].studentsId+
@@ -171,9 +171,11 @@ $.ajax({
             +response.list[i].studentsName+
             '</td><td>'
             +response.list[i].createAt+
+            '</td><td>'
              '</td></tr>'
             }
         }// end for
+
         // 페이징 화면 구현
         var paginationHtml = '';
         if(response.hasPreviousPage){ // 이전 페이지가 있다면(true)
@@ -220,7 +222,7 @@ $.ajax({
             $('#studentsId').val(response.studentsId);
             $('#studentsName').val(response.content);
             $('#studentsPassword').val(response.studentsPassword);
-            $('#boardIdHidden').val(boardId); 
+            $('#boardIdHidden').val(response.boardId); 
          
             }
         });
@@ -235,14 +237,14 @@ $.ajax({
         var studentsPassword = $('#studentsPassword').val();
         
         var jsonData = {
-            studentsId : studentsId,
+            // studentsId : studentsId,
             studentsName : studentsName,
             studentsPassword : studentsPassword
         };
 
       $.ajax({ 
             url : 'http://localhost:8080/api/v1/students/id/'+studentsId,
-            type : 'PATCH', // HTTP update 메소드 
+            type : 'PATCH', 
             contentType : 'application/json', // 서버에 json타입으로 보낼 예정(요청)
             dataType : 'json', // 서버 결과를 json으로 응답받겠다
             data : JSON.stringify(jsonData),
