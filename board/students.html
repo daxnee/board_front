@@ -101,7 +101,7 @@
                         </tr>
                      </thead>
                      <tbody id="boardData">
-                         <tr>
+                         <!-- <tr> -->
                              <!-- <td>hyunsangwon</td>
                              <td>현상원</td>
                              <td>2022-05-19</td>
@@ -115,7 +115,7 @@
                             <td>hyunsangwon</td>
                             <td>현상원</td>
                             <td>2022-05-19</td> -->
-                        </tr>
+                        <!-- </tr> -->
                      </tbody>
                  </table>
                  <div class="pagination">
@@ -149,8 +149,27 @@
 <script>
 
     //학생 리스트 호출
-    // getStudentsList();
-    getStudentsList(1, 10); // 함수 호출 (없으면 결과 안 뜸)
+ 
+   
+    //상세내용 확인 함수
+    function getStudents(studentsId){
+        $('.update-popup').css('display', 'block');
+        $.ajax({
+            url : 'http://localhost:8080/api/v1/students/id/'+studentsId,
+            type : 'GET',
+            dataType : 'json', 
+            success : function(response){
+            //3. input에 데이터 set 해주기
+            $('#studentsId').val(response.studentsId);
+            $('#studentsName').val(response.studentsName);
+            $('#studentsPassword').val(response.studentsPassword);
+            // $('#boardIdHidden').val(response.boardId); 
+         
+            }
+        });
+    }; //end getStudents()
+
+getStudentsList(1, 10); // 함수 호출 (없으면 결과 안 뜸)
 
 function getStudentsList(pageNum, pageSize){
 $.ajax({
@@ -159,7 +178,7 @@ $.ajax({
     dataType : 'json',
     success : function(response){ 
         console.log(response.list);
-    var html = "";
+    var html = '';
     var len = response.list.length;
     if(len > 0){  
     for(var i=0; i<len; i++){ // 
@@ -171,7 +190,6 @@ $.ajax({
             +response.list[i].studentsName+
             '</td><td>'
             +response.list[i].createAt+
-            '</td><td>'
              '</td></tr>'
             }
         }// end for
@@ -179,7 +197,7 @@ $.ajax({
         // 페이징 화면 구현
         var paginationHtml = '';
         if(response.hasPreviousPage){ // 이전 페이지가 있다면(true)
-            paginationHtml  += '<a <a onclick="getStudentsList('+(response.pageNum-1)+', '+pageSize+')" href="#">Previous</a>';
+            paginationHtml  += '<a onclick="getStudentsList('+(response.pageNum-1)+', '+pageSize+')" href="#">Previous</a>';
         }
         for(var i=0; i<response.navigatepageNums.length; i++){ // 페이지 번호 길이 만큼 for문 실행 / navigatepageNums : array
             paginationHtml += '<a id="pageNum'+response.navigatepageNums[i]+'" onclick="getStudentsList('+response.navigatepageNums[i]+', '+pageSize+')" href="#">'+response.navigatepageNums[i]+'</a>';
@@ -199,45 +217,27 @@ $.ajax({
 
     }else{
         html += '<tr><td colspan=3 style= "text-align: center;"> 게시글이 없습니다.</tr></td>'
-    } // colspan = 6  : 목록이 6개
+    } 
     
     $('#boardData').children().remove();  // 성형작업1
     $('#boardData').append(html); // tbody에 json데이터 렌더링
-        },
-    });
+    },
+});
 }   // end function
 
 
 
-    //상세내용 확인 함수
-    function getStudents(studentsId){
-        $('.update-popup').css('display', 'block');
-
-        $.ajax({
-            url : 'http://localhost:8080/api/v1/students/id/'+studentsId,
-            type : 'GET',
-        dataType : 'json', 
-        success : function(response){
-            //3. input에 데이터 set 해주기
-            $('#studentsId').val(response.studentsId);
-            $('#studentsName').val(response.content);
-            $('#studentsPassword').val(response.studentsPassword);
-            $('#boardIdHidden').val(response.boardId); 
-         
-            }
-        });
-    }; //end getStudents()
 
     
     // 학생 수정
     $('#contentUpdate').click(function(){
-        var boardId = $('#boardIdHidden').val(); // hidden에 숨겨둔 boardId 가져오기
-        var studentsId =  $('#studentsId').val();
+        var studentsIdHidden = $('#boardIdHidden').val(); // hidden에 숨겨둔 boardId 가져오기
+        var studentsId = $('#studentsId').val();
         var studentsName = $('#studentsName').val();
         var studentsPassword = $('#studentsPassword').val();
-        
+
         var jsonData = {
-            // studentsId : studentsId,
+            studentsId : studentsId,
             studentsName : studentsName,
             studentsPassword : studentsPassword
         };
@@ -256,13 +256,53 @@ $.ajax({
                     alert('수정 완료');
                     $('#boardData').children().remove();
                     $('.update-popup').css('display', 'none'); // 게시물 상세 화면 감추기
-                    getStudentsList(1,10);
+                    location.reload();
                 }
             }
         }); //ajax end 
     });
 
 
+
+    // 검색 페이징 
+    $('#searchBar').keyup(function(key){
+        //엔터를 누를때 hello world를 출력하고 싶음.
+        //13은 엔터를 의미
+        if(key.keyCode == 13){
+            //1. input 값을 가져옴.
+            var search = $('#searchBar').val();//input에 작성한 작성자를 가져옴
+            console.log(search)
+            //2. AJAX 호출
+            $.ajax({
+                url: 'http://localhost:8080/api/v1/board/search?writer='+search,
+                type : 'GET',
+                dataType: 'json',
+                success: function (response) {
+                    var len =  response.length;
+                    var html = '';
+                    if(len > 0){
+                        for(var i=0; i<len; i++){ // 
+                    if(len > 0){         
+                        html += 
+                    '<tr onclick=getStudents('+response.list[i].studentsId+')><td>'  
+                        +response.list[i].studentsId+
+                        '</td><td>'
+                        +response.list[i].studentsName+
+                        '</td><td>'
+                        +response.list[i].createAt+
+                        '</td></tr>'
+                            }
+                       }// end for
+                    }else{
+                        //게시글 없음 로직 구현
+                        html += '<tr><td colspan=3 style="text-align: center;">게시글이 없습니다.</td></tr>';
+                    }
+                    $('#boardData').children().remove();
+                    $('#boardData').append(html);//tbody에 json데이터 렌더링
+                }
+            });
+        }
+    });
 
 </script>
 </html>
