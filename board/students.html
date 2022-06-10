@@ -303,36 +303,36 @@ $.ajax({
 
     
     // 학생 수정
-    $('#contentUpdate').click(function(){
-        var boardIdHidden = $('#boardIdHidden').val(); // hidden에 숨겨둔 boardId 가져오기
-        var studentsId = $('#studentsId').val();
-        var studentsName = $('#studentsName').val();
-        var studentsPassword = $('#studentsPassword').val();
-
-        var jsonData = {
-            studentsId : studentsId,
-            studentsName : studentsName,
-            studentsPassword : studentsPassword
-        };
-
-      $.ajax({ 
-            url : 'http://localhost:8080/api/v1/students/id/'+studentsId,
-            type : 'PATCH', 
-            contentType : 'application/json', // 서버에 json타입으로 보낼 예정(요청)
-            dataType : 'json', // 서버 결과를 json으로 응답받겠다
-            data : JSON.stringify(jsonData),
-            success : function(response){
-                if(response > 0){
-                    if(!confirm('수정 하시겠습니까?')){
-                        return false; 
-                    }
-                    alert('수정 완료');
-                    $('#boardData').children().remove();
-                    $('.update-popup').css('display', 'none'); // 게시물 상세 화면 감추기
-                    location.reload();
-                }
+    $("#contentUpdate").click(function () {
+      var jsonData = {
+        studentsName: $("#studentsName").val(),
+        studentsPassword: $("#studentsPassword").val(),
+      };
+      console.log(jsonData);
+      var studentsId = $("#studentsId").val();
+      $.ajax({
+        url: "http://localhost:8080/api/v1/students/id/" + studentsId,
+        type: "PATCH",
+        contentType: "application/json",
+        dataType: "json",
+        data: JSON.stringify(jsonData),
+        success: function (response) {
+          if (response > 0) {
+            confirm("학생 정보를 수정 하시겠습니까?");
+            if (confirm) {
+              $(".update-popup").css("display", "none");
+              $("#studentsName").val("");
+              $("#studentsPassword").val("");
+              alert("변경 사항이 저장 되었습니다.");
+              $("#studentsData").children().remove();
+              getLogsList(1, 5);
             }
-        }); //ajax end 
+          }
+        },
+        error: function (request, statis, error) {
+          console.log(error);
+        },
+      });
     });
 
 
