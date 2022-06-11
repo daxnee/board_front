@@ -359,12 +359,15 @@
         });
     }//end function
 
+    
     /* 게시판 작성 함수 */
     $("#contentSubmit").click(function () {
       if (confirm("게시글을 작성하시겠습니까?")) {
         var title = $("#title").val();
         var content = $("#content").val();
-        var studentsId = 9; // DB에 있는 studentsId로 임시 설정
+        var studentsId = 7; // DB에 있는 studentsId로 임시 설정
+        // (오류주의) 디버버엔 insert가 되는데 웹에선 안보이는 경우 : 
+        // DB students 테이블에 존재하는 studentsId로 설정해야 웹에서 보임 
 
         //빈칸 확인
         if (title == "") {
@@ -395,8 +398,8 @@
             if (response > 0) {
               $(".write-popup").css("display", "none"); //글 작성이 완료되면 css = none (팝업창 사라짐)
               //내가 전에 작성한 글 지우고 빈 input 박스(제목, 타이틀) 보여주기. 지우지 않으면 전에 작성한 글이 그대로 남는다.
-              $("#title").val("");
-              $("#content").val("");
+              $("#title").val('');
+              $("#content").val('');
               $("#boardData").children().remove();
               // tbody에 있는 기존 append를 지우고 새로운 함수를 호출해야 한다 remove 하지 않으면 게시글 목록이 추가로 또 생긴다.
               getBoardList(1, 10); //아래 함수 호출
