@@ -14,7 +14,7 @@
             <div class="editor">
                 <div class="input-box">
                     <label for="studentsName">작성자 : </label>
-                    <input id="studentsName" type="text" value="양다은" readonly>
+                    <input id="studentsName" type="text" value="현상원" readonly>
                 </div>
                 <div class="input-box">
                     <label for="title">제목 : </label>
@@ -190,22 +190,12 @@
                             <td>안녕하세요!</td>
                             <td>2022-05-19</td>
                             <td>2022-05-18</td>
-<<<<<<< HEAD:board/index.html
-                            <td><span class="row">22</span></td> -->
-                            
-              </tr>
-            </tbody>
-          </table>
-          <div class="pagination">
-            <!-- <a href="#">Previous</a>
-=======
                             <td><span class="row">22</span></td>
                         </tr> -->
                      </tbody>
                  </table>
                  <div class="pagination">              
                     <!-- <a href="#">Previous</a>
->>>>>>> 10fb3c7 (fix : 내용 수정):board/board.html
                     <a href="#">1</a>
                     <a href="#">2</a>
                     <a href="#">3</a>
@@ -224,24 +214,25 @@
       integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
       crossorigin="anonymous"
     ></script>
+    <script>
+        $('.btn').click(function(){
+            $('.write-popup').css('display', 'block');
+        });
+        $('.btn-cancel').click(function(){
+            $('.write-popup').css('display', 'none');
+        });
+        $('.btn-close').click(function(){
+            $('.update-popup').css('display', 'none');
+        });
+        let list = document.querySelectorAll('.navigation li');
+        function activeLink(){
+            list.forEach((item) => {item.classList.remove('hovered')});
+            this.classList.add('hovered');
+        }
+        list.forEach((item) => {item.addEventListener('mouseover',activeLink)});
+    </script>
 <script>
-    $('.btn').click(function(){
-        $('.write-popup').css('display', 'block');
-    });
-    $('.btn-cancel').click(function(){
-        $('.write-popup').css('display', 'none');
-    });
-    $('.btn-close').click(function(){
-        $('.update-popup').css('display', 'none');
-    });
-    let list = document.querySelectorAll('.navigation li');
-    function activeLink(){
-        list.forEach((item) => {item.classList.remove('hovered')});
-        this.classList.add('hovered');
-    }
-    list.forEach((item) => {item.addEventListener('mouseover',activeLink)});
-</script>
-<script>
+
     //게시판 리스트 호출
     getBoardList(1, 10);
     //게시판 통계 함수 호출
@@ -258,6 +249,7 @@
             type : 'GET',
             dataType: 'json',
             success: function (response) {
+                console.log(response);
                 //html append 작성
                 var html = '';
                 var len = response.list.length;
@@ -302,8 +294,6 @@
             }//end success function
         });
     }//end function
-
-<<<<<<< HEAD:board/index.html
     
     /* 게시판 작성 함수 */
     $("#contentSubmit").click(function () {
@@ -348,9 +338,9 @@
               $("#boardData").children().remove();
               // tbody에 있는 기존 append를 지우고 새로운 함수를 호출해야 한다 remove 하지 않으면 게시글 목록이 추가로 또 생긴다.
               getBoardList(1, 10); //아래 함수 호출
-=======
-    // 게시판 통계 함수
-    function getBoardStatistics(){
+    
+            // 게시판 통계 함수
+            function getBoardStatistics(){
         $.ajax({
             url: 'http://localhost:8080/api/v1/board/statistics',
             type : 'GET',
@@ -362,10 +352,10 @@
                 $('#studentsCnt').text(response.studentsCnt);
                 $('#writerCnt').text(response.writerCnt);
                 $('#viewsCnt').text(response.viewsCnt);
->>>>>>> 10fb3c7 (fix : 내용 수정):board/board.html
             }
         });
     };//end   
+  
 
     /* 게시판 작성 함수 */
     $('#contentSubmit').click(function(){
