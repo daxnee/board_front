@@ -219,6 +219,16 @@
       item.addEventListener("mouseover", activeLink);
     });
   </script>
+   <script>
+    $(".btn-close").click(function () {
+      // 글 수정 팝업 닫기 누르면 팝업창 닫기
+      $(".update-popup").css("display", "none");
+      $(".insert-popup").css("display", "none");
+    });
+    $(".btn").click(function () {
+      $(".insert-popup").css("display", "block");
+    });
+  </script>
   <script>
     //학생 리스트 호출
     getStudentsList(1, 5); // 함수 호출 (없으면 결과 안 뜸)
@@ -321,6 +331,8 @@
       });
     } // end function
 
+
+
     //특정 학생 조회 (게시글 상세 내용 확인)
     function getStudents(studentsId) {
       $(".update-popup").css("display", "block");
@@ -382,7 +394,6 @@
           dataType: "json",
           success: function (response) {
             if (response > 0) {
-              $(".update-popup").css("display", "none");
               alert("ID : " + studentsId + "번이 삭제 되었습니다.");
               $(".update-popup").css("display", "none");
               $("#studentsData").children().remove();
@@ -398,7 +409,38 @@
 
 
     //학생 추가
-
+    
+    // 학생 수정
+    $("#contentUpdate").click(function () {
+      var jsonData = {
+        studentsName: $("#studentsName").val(),
+        studentsPassword: $("#studentsPassword").val(),
+      };
+      console.log(jsonData);
+      var studentsId = $("#studentsId").val();
+      $.ajax({
+        url: "http://localhost:8080/api/v1/students/id/" + studentsId,
+        type: "PATCH",
+        contentType: "application/json",
+        dataType: "json",
+        data: JSON.stringify(jsonData),
+        success: function (response) {
+          if (response > 0) {
+            if (!confirm("학생 정보를 수정 하시겠습니까?")) {
+              return false;
+            }
+            $(".update-popup").css("display", "none");
+            $("#studentsData").children().remove();
+            $("#studentsName").val("");
+            $("#studentsPassword").val("");
+            getStudentsList(1, 5);
+          }
+        },
+        error: function (request, statis, error) {
+          console.log(error);
+        },
+      });
+    });
 
 
     // 검색 페이징
@@ -497,41 +539,5 @@
     })  
 
     
-    
-    
-
-
-    
-    // 학생 수정
-    $("#contentUpdate").click(function () {
-      var jsonData = {
-        studentsName: $("#studentsName").val(),
-        studentsPassword: $("#studentsPassword").val(),
-      };
-      console.log(jsonData);
-      var studentsId = $("#studentsId").val();
-      $.ajax({
-        url: "http://localhost:8080/api/v1/students/id/" + studentsId,
-        type: "PATCH",
-        contentType: "application/json",
-        dataType: "json",
-        data: JSON.stringify(jsonData),
-        success: function (response) {
-          if (response > 0) {
-            if (!confirm("학생 정보를 수정 하시겠습니까?")) {
-              return false;
-            }
-            $(".update-popup").css("display", "none");
-            $("#studentsData").children().remove();
-            $("#studentsName").val("");
-            $("#studentsPassword").val("");
-            getStudentsList(1, 5);
-          }
-        },
-        error: function (request, statis, error) {
-          console.log(error);
-        },
-      });
-    });
   </script>
 </html>
