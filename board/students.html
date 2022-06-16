@@ -219,7 +219,7 @@
       item.addEventListener("mouseover", activeLink);
     });
   </script>
-   <script>
+  <script>
     $(".btn-close").click(function () {
       // 글 수정 팝업 닫기 누르면 팝업창 닫기
       $(".update-popup").css("display", "none");
@@ -253,85 +253,83 @@
       }
 
       $.ajax({
-        url:controllerUrl,
+        url: controllerUrl,
         type: "GET",
         dataType: "json",
         success: function (response) {
           console.log(response.list);
-          
-          if(response != null){
-          var html = "";
-          var len = response.list.length;
-          if (len > 0) {
-            for (var i = 0; i < len; i++) {
-              if (len > 0) {
-                html +=
-                  "<tr onclick=getStudents(" +
-                  response.list[i].studentsId +
-                  ")><td>" +
-                  response.list[i].studentsId +
-                  "</td><td>" +
-                  response.list[i].studentsName +
-                  "</td><td>" +
-                  response.list[i].createAt +
-                  "</td></tr>";
+
+          if (response != null) {
+            var html = "";
+            var len = response.list.length;
+            if (len > 0) {
+              for (var i = 0; i < len; i++) {
+                if (len > 0) {
+                  html +=
+                    "<tr onclick=getStudents(" +
+                    response.list[i].studentsId +
+                    ")><td>" +
+                    response.list[i].studentsId +
+                    "</td><td>" +
+                    response.list[i].studentsName +
+                    "</td><td>" +
+                    response.list[i].createAt +
+                    "</td></tr>";
+                }
+              } // end for
+
+              // 페이징 화면 구현
+              var paginationHtml = "";
+              if (response.hasPreviousPage) {
+                // 이전 페이지가 있다면(true)
+                paginationHtml +=
+                  '<a onclick="getStudentsList(' +
+                  (response.pageNum - 1) +
+                  ", " +
+                  pageSize +
+                  ')" href="#">Previous</a>';
               }
-            } // end for
 
-            // 페이징 화면 구현
-            var paginationHtml = "";
-            if (response.hasPreviousPage) {
-              // 이전 페이지가 있다면(true)
-              paginationHtml +=
-                '<a onclick="getStudentsList(' +
-                (response.pageNum - 1) +
-                ", " +
-                pageSize +
-                ')" href="#">Previous</a>';
-            }
+              for (var i = 0; i < response.navigatepageNums.length; i++) {
+                // 페이지 번호 길이 만큼 for문 실행 / navigatepageNums : array (블록 개수)
+                paginationHtml +=
+                  '<a id="pageNum' +
+                  response.navigatepageNums[i] +
+                  '" onclick="getStudentsList(' +
+                  response.navigatepageNums[i] +
+                  ", " +
+                  pageSize +
+                  ')" href="#">' +
+                  response.navigatepageNums[i] +
+                  "</a>";
+                // id = pageNum1
+              }
+              if (response.hasNextPage) {
+                // 다음 페이지가 있다면(true)
+                paginationHtml +=
+                  '<a onclick="getStudentsList(' +
+                  (response.pageNum + 1) +
+                  ", " +
+                  pageSize +
+                  ')" href="#">Next</a>';
+              }
+              $(".pagination").children().remove(); // 성형작업1
+              $(".pagination").append(paginationHtml);
 
-            for (var i = 0; i < response.navigatepageNums.length; i++) {
-              // 페이지 번호 길이 만큼 for문 실행 / navigatepageNums : array (블록 개수)
-              paginationHtml +=
-                '<a id="pageNum' +
-                response.navigatepageNums[i] +
-                '" onclick="getStudentsList(' +
-                response.navigatepageNums[i] +
-                ", " +
-                pageSize +
-                ')" href="#">' +
-                response.navigatepageNums[i] +
-                "</a>";
-              // id = pageNum1
+              // 페이지 번호에 맞게 css 수정
+              // 성형작업 2-1
+              $("#pageNum" + pageNum).css("backgroundColor", "#287bff"); // 파라미터로 클릭한 페이지 번호를 받아오기 때문에 색상이 변경될 수 있음
+              $("#pageNum" + pageNum).css("color", "#fff");
+            } else {
+              html +=
+                '<tr><td colspan=3 style= "text-align: center;"> 게시글이 없습니다.</tr></td>';
             }
-            if (response.hasNextPage) {
-              // 다음 페이지가 있다면(true)
-              paginationHtml +=
-                '<a onclick="getStudentsList(' +
-                (response.pageNum + 1) +
-                ", " +
-                pageSize +
-                ')" href="#">Next</a>';
-            }
-            $(".pagination").children().remove(); // 성형작업1
-            $(".pagination").append(paginationHtml);
-
-            // 페이지 번호에 맞게 css 수정
-            // 성형작업 2-1
-            $("#pageNum" + pageNum).css("backgroundColor", "#287bff"); // 파라미터로 클릭한 페이지 번호를 받아오기 때문에 색상이 변경될 수 있음
-            $("#pageNum" + pageNum).css("color", "#fff");
-          } else {
-            html +=
-              '<tr><td colspan=3 style= "text-align: center;"> 게시글이 없습니다.</tr></td>';
-            }
-           }
+          }
           $("#boardData").children().remove(); // 성형작업1
           $("#boardData").append(html); // tbody에 json데이터 렌더링
         },
       });
     } // end function
-
-
 
     //특정 학생 조회 (게시글 상세 내용 확인)
     function getStudents(studentsId) {
@@ -350,20 +348,19 @@
       });
     } //end getStudents()
 
-
     // 학생 수정
-    $("#contentUpdate").click(function() {
+    $("#contentUpdate").click(function () {
       var jsonData = {
         studentsName: $("#studentsName").val(),
-        studentsPassword: $("#studentsPassword").val()
+        studentsPassword: $("#studentsPassword").val(),
       };
 
       var studentsId = $("#studentsId").val();
       $.ajax({
         url: "http://localhost:8080/api/v1/students/id/" + studentsId,
         type: "PATCH",
-        contentType: "application/json", 
-        dataType: "json", 
+        contentType: "application/json",
+        dataType: "json",
         data: JSON.stringify(jsonData),
         success: function (response) {
           if (response > 0) {
@@ -371,8 +368,8 @@
               return false;
             }
             $(".update-popup").css("display", "none"); // 게시물 상세 화면 감추기
-            $("#studentsName").val('');
-            $("#studentsPassword").val('');
+            $("#studentsName").val("");
+            $("#studentsPassword").val("");
             alert("수정 완료");
             $("#boardData").children().remove();
             //location.reload();
@@ -382,7 +379,6 @@
       }); //ajax end
     });
 
-    
     //학생 삭제
     $("#contentDelete").click(function () {
       var studentsId = $("#studentsId").val();
@@ -407,9 +403,8 @@
       }
     });
 
-
     //학생 추가
-    
+
     // 학생 수정
     $("#contentUpdate").click(function () {
       var jsonData = {
@@ -441,7 +436,6 @@
         },
       });
     });
-
 
     // 검색 페이징
     $("#searchBar").keyup(function (key) {
@@ -525,7 +519,6 @@
               $("#pageNum" + pageNum).css("color", "#fff");
               $("#boardData").children().remove();
               $("#boardData").append(html);
-
             } else {
               //게시글 없음 로직 구현
               html +=
@@ -535,9 +528,7 @@
             $("#boardData").append(html); //tbody에 json데이터 렌더링
           },
         });
-    }
-    })  
-
-    
+      }
+    });
   </script>
 </html>
